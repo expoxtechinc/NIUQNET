@@ -9,6 +9,10 @@ const rawPort = process.env.PORT ?? '5173';
 const port = Number(rawPort);
 if (Number.isNaN(port) || port <= 0) throw new Error(`Invalid PORT value: "${rawPort}"`);
 const basePath = process.env.BASE_PATH ?? '/';
+const appEntry =
+  process.env.NODE_ENV === 'production'
+    ? `${basePath}assets/app.js`
+    : `${basePath}src/main.tsx`;
 
 const injectAppEntry = () => ({
   name: 'inject-app-entry',
@@ -16,7 +20,7 @@ const injectAppEntry = () => ({
     return [
       {
         tag: 'script',
-        attrs: { type: 'module', src: `${basePath}assets/app.js` },
+        attrs: { type: 'module', src: appEntry },
         injectTo: 'body',
       },
     ];
