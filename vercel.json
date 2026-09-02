@@ -1,0 +1,12 @@
+{
+  "buildCommand": "pnpm --filter @workspace/niu-platform run build",
+  "installCommand": "pnpm install --frozen-lockfile",
+  "outputDirectory": "artifacts/niu-platform/dist/public",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
