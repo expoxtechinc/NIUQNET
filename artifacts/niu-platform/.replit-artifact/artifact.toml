@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Nova International University"
+description = "A governed certificate-learning platform for Nova International University, supporting programme discovery, learner progress, secure assessments, and administrator curriculum operations."
+version = "1.0.0"
+id = "artifacts/niu-platform"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18353
+
+[services.development]
+run = "pnpm --filter @workspace/niu-platform run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/niu-platform", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/niu-platform/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18353"
+BASE_PATH = "/"
